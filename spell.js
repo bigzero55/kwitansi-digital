@@ -1,75 +1,75 @@
 //algorithm
 
-function numbToWord(numb) {
+function numbToWord (numb) {
   switch (numb) {
-    case "1":
-      return "satu";
+    case '1':
+      return 'satu';
       break;
-    case "2":
-      return "dua";
+    case '2':
+      return 'dua';
       break;
-    case "3":
-      return "tiga";
+    case '3':
+      return 'tiga';
       break;
-    case "4":
-      return "empat";
+    case '4':
+      return 'empat';
       break;
-    case "5":
-      return "lima";
+    case '5':
+      return 'lima';
       break;
-    case "6":
-      return "enam";
+    case '6':
+      return 'enam';
       break;
-    case "7":
-      return "tujuh";
+    case '7':
+      return 'tujuh';
       break;
-    case "8":
-      return "delapan";
+    case '8':
+      return 'delapan';
       break;
-    case "9":
-      return "sembilan";
+    case '9':
+      return 'sembilan';
       break;
     default:
       break;
   }
 }
 
-function numbToWordBelasan(numb) {
+function numbToWordBelasan (numb) {
   switch (numb) {
-    case "11":
-      return "sebelas";
+    case '11':
+      return 'sebelas';
       break;
-    case "12":
-      return "dua belas";
+    case '12':
+      return 'dua belas';
       break;
-    case "13":
-      return "tiga belas";
+    case '13':
+      return 'tiga belas';
       break;
-    case "14":
-      return "empat belas";
+    case '14':
+      return 'empat belas';
       break;
-    case "15":
-      return "lima belas";
+    case '15':
+      return 'lima belas';
       break;
-    case "16":
-      return "enam belas";
+    case '16':
+      return 'enam belas';
       break;
-    case "17":
-      return "tujuh belas";
+    case '17':
+      return 'tujuh belas';
       break;
-    case "18":
-      return "delapan belas";
+    case '18':
+      return 'delapan belas';
       break;
-    case "19":
-      return "sembilan belas";
+    case '19':
+      return 'sembilan belas';
       break;
     default:
       break;
   }
 }
 
-function getSpellNominal(number) {
-  const numbarray = String(number).split("");
+function getSpellNominal (number) {
+  const numbarray = String(number).split('');
 
   if (numbarray.length == 2) {
     return spellPuluhan(number);
@@ -78,69 +78,101 @@ function getSpellNominal(number) {
 		return spellRatusan(number)
   }
   if (numbarray.length == 4) {
-    return "ribua";
+    return 'ribua';
   }
   if (numbarray.length == 5) {
-    return "puluhan ribu";
+    return 'puluhan ribu';
   }
   if (numbarray.length == 6) {
-    return "ratusan ribu";
+    return 'ratusan ribu';
   }
   if (numbarray.length == 7) {
-    return "jutaan";
+    return 'jutaan';
   }
   if (numbarray.length == 8) {
-    return "puluhan juta";
+    return 'puluhan juta';
   }
 
   if (numbarray.length > 8) {
-    return "Error";
+    return 'Error';
   }
 }
 
 console.log(getSpellNominal(105));
 
 function spellPuluhan(number) {
-  const idr = " rupiah";
   const str = String(number);
-  const numbarray = str.split("");
+  const numbarray = str.split('');
   if (numbarray.length == 1) {
-    return numbToWord(number) + idr;
+    return numbToWord(number)
   }
   if (numbarray.length == 2) {
     if (numbarray[0] == 1 && numbarray[1] == 0) {
-      return "sepuluh rupiah";
+      return 'sepuluh';
     }
 
     if (numbarray[0] != 1) {
-      const angka1 = numbToWord(numbarray[0]) + " puluh";
+      const angka1 = numbToWord(numbarray[0]) + ' puluh';
       const angka2 = numbToWord(numbarray[1]);
       if (angka2 != undefined) {
-        return `${angka1} ${angka2} rupiah`;
+        return `${angka1} ${angka2}`;
       } else {
-        return angka1 + idr;
+        return angka1;
       }
     } else {
-      return numbToWordBelasan(String(number)) + idr;
+      return numbToWordBelasan(String(number))
     }
   }
 }
 
-function spellRatusan(number) {
+function spellRatusan (number) {
 	const numbarray = String(number).split('')
 	const ratusan = numbarray[0] == 1 ? 'seratus':`${numbToWord(numbarray[0])} ratus`;
 	if (numbarray[1] == 0 && numbarray[2] == 0) {
-		return ratusan + ' rupiah'
+		return ratusan
 	}
 	if (numbarray[1] == 0 && numbarray[2] != 0) {
 		const angka3 = numbToWord(numbarray[2]);
-		return ratusan + " " + angka3 + ' rupiah'
+		return ratusan + ' ' + angka3
 	}
 	if (numbarray[1] != 0 && numbarray[2] != 0) {
 		const array23 = numbarray.slice(1)
-		const numb23 = Number(array23.join(""));
-		return ratusan + " " + spellPuluhan(numb23)
+		const numb23 = Number(array23.join(''));
+		return ratusan + ' ' + spellPuluhan(numb23)
 	}
 }
 
-console.log(spellRatusan(908));
+
+function spellRibuan (number) {
+  const numbarray = String(number).split('');
+  const ribuan = numbarray[0] == 1 ? 'seribu' : numbToWord(numbarray[0]) + ' ribu';
+  if (numbarray[1] == 0 && numbarray[2] == 0 && numbarray[3] == 0) {
+    return ribuan
+  }
+  if (numbarray[1] == 0 && numbarray[2] == 0 && numbarray[3] != 0) {
+    return ribuan + ' ' + numbToWord(numbarray[3]);
+  }
+  if (numbarray[1] == 0 && numbarray[2] != 0 && numbarray[3] != 0) {
+    const puluhanArray = numbarray.slice(2)
+    const numbPuluhan = Number(puluhanArray.join(''))
+    return ribuan + ' ' + spellPuluhan(numbPuluhan)
+  }
+  if ((numbarray[1] != 0 && numbarray[2] != 0 && numbarray[3] != 0)) {
+    const ratusanArray = numbarray.slice(1)
+    const numbRatusan = Number(ratusanArray.join(''))
+    return ribuan + ' ' + spellRatusan(numbRatusan)
+  }
+}
+
+//29 987
+function spellPuluhanRibu (number) {
+  const numbarray = String(number).split("");
+  const puluhanribuArray = numbarray.slice(0,2);
+  const PuluhanRibu = spellPuluhan(Number(puluhanribuArray.join('')))
+  if (numbarray[2] == 0 && numbarray[3] == 0 && numbarray[4] == 0) {
+    return PuluhanRibu + ' ribu'
+  }
+
+}
+
+console.log(spellPuluhanRibu(12000));
